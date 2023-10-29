@@ -1,16 +1,12 @@
-import Todos from "./todos";
-const TodoList = ({ todos, deleteTodo }) => {
+const TodoList = ({ todos }) => {
   return (
     <div>
-      {todos.length === 0 && "No todos"}
       {todos.map((todo) => {
         return (
-          <Todos
-            id={todo.id}
-            title={todo.title}
-            deleteTodo={deleteTodo}
-            key={todo.id}
-          />
+          <div className="flex h-full w-[400px] justify-between bg-gray-200 px-2 py-4">
+            <p>{todo}</p>
+            <button>Clear</button>
+          </div>
         );
       })}
     </div>
