@@ -1,11 +1,14 @@
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, handleDelete }) => {
   return (
     <div>
-      {todos.map((todo) => {
+      {todos.map((todo, index) => {
         return (
-          <div className="flex h-full w-[400px] justify-between bg-gray-200 px-2 py-4">
+          <div
+            key={index}
+            className="flex h-full w-[400px] justify-between bg-gray-200 px-2 py-4"
+          >
             <p>{todo}</p>
-            <button>Clear</button>
+            <button onClick={() => handleDelete(index)}>Clear</button>
           </div>
         );
       })}
