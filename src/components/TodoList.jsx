@@ -17,4 +17,3 @@ const TodoList = ({ todos, handleDelete }) => {
 };
 
 export default TodoList;
-console.log(todo);
