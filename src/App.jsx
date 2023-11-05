@@ -4,22 +4,21 @@ import { useState } from "react";
 const Home = () => {
   const [todos, setTodos] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
-
   const onAdd = (value) => {
     const newArray = [...todos, value];
     setTodos(newArray);
   };
-
-  const onEditTodo = (index) => {
-    setEditingIndex(index);
+  const onEditTodo = (index, editedValue) => {
+    if (index === editingIndex) {
+      const newTodo = [...todos];
+      newTodo[index] = editedValue;
+      setTodos(newTodo);
+      setEditingIndex(-1);
+    } else {
+      setEditingIndex(index);
+    }
   };
 
-  const onSaveEdit = (index, editedValue) => {
-    const newTodo = [...todos];
-    newTodo[index] = editedValue;
-    setTodos(newTodo);
-    setEditingIndex = -1;
-  };
   const handleDelete = (index) => {
     const newArray = [...todos];
     newArray.splice(index, 1);
@@ -34,23 +33,9 @@ const Home = () => {
           todos={todos}
           handleDelete={handleDelete}
           onEditTodo={onEditTodo}
+          editingIndex={editingIndex}
+          setEditingIndex={setEditingIndex}
         />
-        {editingIndex !== -1 && (
-          <div>
-            <input
-              type="text"
-              value={todos[editingIndex]}
-              onChange={(e) => onSaveEdit(editingIndex, e.target.value)}
-            />
-            <button
-              onClick={() => {
-                onSaveEdit(editingIndex, todos[editingIndex]);
-              }}
-            >
-              save
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
