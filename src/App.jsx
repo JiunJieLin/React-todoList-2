@@ -16,6 +16,7 @@ const Home = () => {
       newTodo[index] = editedValue;
       setTodos(newTodo);
       setEditingIndex(-1);
+      setEditedValue("");
     } else {
       setEditingIndex(index);
     }
