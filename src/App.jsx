@@ -27,8 +27,8 @@ const Home = () => {
     setTodos(newArray);
   };
   return (
-    <div className="min-h-screen min-w-[200px]">
-      <div className="flex flex-col gap-4">
+    <div className="flex max-w-full flex-col items-center">
+      <div className="mx-auto flex  flex-col gap-2">
         <p className="text-lg font-bold">Tasks</p>
         <AddTodo onAdd={onAdd} />
         <TodoList

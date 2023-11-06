@@ -13,27 +13,51 @@ const TodoList = ({
         return (
           <div
             key={index}
-            className="flex h-full w-[400px] justify-between bg-gray-200 px-2 py-4"
+            className="relative mb-1 flex items-center rounded-md bg-gray-200 px-2 py-4"
           >
-            <input type="checkbox"></input>
-            <div>
+            <div className="flex items-center justify-between">
+              <input type="checkbox" className="mr-2"></input>
               {index === editingIndex ? (
-                <div>
+                <div className=" flex items-center ">
                   <input
                     type="text"
                     value={editedValue}
                     onChange={(e) => setEditedValue(e.target.value)}
+                    className="rounded-md focus:py-1 focus:outline-blue-600"
                   />
-                  <button onClick={() => onEditTodo(index, editedValue)}>
-                    save
+                  <button
+                    className="ml-2 rounded-md bg-blue-500 px-4 py-1 "
+                    onClick={() => onEditTodo(index, editedValue)}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className=" m-2 rounded-md bg-red-500 px-4 py-1"
+                    onClick={() => handleDelete(index)}
+                  >
+                    Clear
                   </button>
                 </div>
               ) : (
-                <span>{todo}</span>
+                <div className=" flex items-center">
+                  <p className="font-bold">{todo}</p>
+                  <div className="absolute right-2 top-1">
+                    <button
+                      className=" top-2 rounded-md bg-yellow-500 px-4 py-1"
+                      onClick={() => setEditingIndex(index)}
+                    >
+                      edit
+                    </button>
+                    <button
+                      className="m-2 rounded-md bg-red-500 px-4 py-1"
+                      onClick={() => handleDelete(index)}
+                    >
+                      Clear
+                    </button>
+                  </div>
+                </div>
               )}
-              <button onClick={() => setEditingIndex(index)}>edit</button>
             </div>
-            <button onClick={() => handleDelete(index)}>Clear</button>
           </div>
         );
       })}
