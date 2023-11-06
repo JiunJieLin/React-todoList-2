@@ -4,6 +4,8 @@ const TodoList = ({
   onEditTodo,
   editingIndex,
   setEditingIndex,
+  setEditedValue,
+  editedValue,
 }) => {
   return (
     <div>
@@ -19,10 +21,12 @@ const TodoList = ({
                 <div>
                   <input
                     type="text"
-                    value={todo}
-                    onChange={(e) => onEditTodo(index, e.target.value)}
+                    value={editedValue}
+                    onChange={(e) => setEditedValue(e.target.value)}
                   />
-                  <button onClick={() => setEditingIndex(-1)}>save</button>
+                  <button onClick={() => onEditTodo(index, editedValue)}>
+                    save
+                  </button>
                 </div>
               ) : (
                 <span>{todo}</span>

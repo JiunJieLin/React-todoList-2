@@ -4,6 +4,8 @@ import { useState } from "react";
 const Home = () => {
   const [todos, setTodos] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
+  const [editedValue, setEditedValue] = useState("");
+
   const onAdd = (value) => {
     const newArray = [...todos, value];
     setTodos(newArray);
@@ -35,6 +37,8 @@ const Home = () => {
           onEditTodo={onEditTodo}
           editingIndex={editingIndex}
           setEditingIndex={setEditingIndex}
+          setEditedValue={setEditedValue}
+          editedValue={editedValue}
         />
       </div>
     </div>
