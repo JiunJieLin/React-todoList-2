@@ -52,7 +52,7 @@ const TodoList = () => {
           Add Task
         </button>
       </form>
-      <ul>
+      <ul className="mt-3 flex flex-col gap-2">
         {todoItems.map((todo) => (
           <TodoItem
             key={todo.id}
