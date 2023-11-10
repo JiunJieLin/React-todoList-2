@@ -1,68 +1,69 @@
-const TodoList = ({
-  todos,
-  handleDelete,
-  onEditTodo,
-  editingIndex,
-  setEditingIndex,
-  setEditedValue,
-  editedValue,
-}) => {
+import { useState } from "react";
+import TodoItem from "./TodoItem";
+const TodoList = () => {
+  const [todoItems, setTodoItems] = useState([]);
+  const [newTodoContent, setNewTodoContent] = useState("");
+  const handleAddTodo = (content) => {
+    if (content.trim() !== "") {
+      const newTodo = {
+        id: Date.now(),
+        content: content.trim(),
+        isInEditMode: false,
+      };
+      setTodoItems(todoItems.concat(newTodo));
+      setNewTodoContent("");
+    }
+  };
+  const handleDeleteTodo = (id) => {
+    setTodoItems(todoItems.filter((todo) => todo.id !== id));
+  };
+  const handleToggleEditMode = (id) => {
+    setTodoItems(
+      todoItems.map((todo) =>
+        todo.id === id ? { ...todo, isInEditMode: !todo.isInEditMode } : todo
+      )
+    );
+  };
+  const handleSaveTodo = (id, content) => {
+    setTodoItems(
+      todoItems.map((todo) =>
+        todo.id === id ? { ...todo, content, isInEditMode: false } : todo
+      )
+    );
+  };
+  const handleInputChange = (event) => {
+    setNewTodoContent(event.target.value);
+  };
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    handleAddTodo(newTodoContent);
+  };
   return (
     <div>
-      {todos.map((todo, index) => {
-        return (
-          <div
-            key={index}
-            className="relative mb-1 flex items-center rounded-md bg-gray-200 px-2 py-4"
-          >
-            <div className="flex items-center justify-between">
-              <input type="checkbox" className="mr-2"></input>
-              {index === editingIndex ? (
-                <div className=" flex items-center ">
-                  <input
-                    type="text"
-                    value={editedValue}
-                    onChange={(e) => setEditedValue(e.target.value)}
-                    className="rounded-md focus:py-1 focus:outline-blue-600"
-                  />
-                  <button
-                    className="ml-2 rounded-md bg-blue-500 px-4 py-1 "
-                    onClick={() => onEditTodo(index, editedValue)}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className=" m-2 rounded-md bg-red-500 px-4 py-1"
-                    onClick={() => handleDelete(index)}
-                  >
-                    Clear
-                  </button>
-                </div>
-              ) : (
-                <div className=" flex items-center">
-                  <p className="font-bold">{todo}</p>
-                  <div className="absolute right-2 top-1">
-                    <button
-                      className=" top-2 rounded-md bg-yellow-500 px-4 py-1"
-                      onClick={() => setEditingIndex(index)}
-                    >
-                      edit
-                    </button>
-                    <button
-                      className="m-2 rounded-md bg-red-500 px-4 py-1"
-                      onClick={() => handleDelete(index)}
-                    >
-                      Clear
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        );
-      })}
+      <h1 className="text-lg font-bold text-white">Tasks</h1>
+      <form onSubmit={handleFormSubmit}>
+        <input
+          type="text"
+          value={newTodoContent}
+          onChange={handleInputChange}
+          className="focus:outline-none"
+        ></input>
+        <button type="submit" className="text-white">
+          Add Task
+        </button>
+      </form>
+      <ul>
+        {todoItems.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggleEditMode={handleToggleEditMode}
+            onDelete={handleDeleteTodo}
+            onSave={handleSaveTodo}
+          />
+        ))}
+      </ul>
     </div>
   );
 };
-
 export default TodoList;
