@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import classNames from "classnames";
 const TodoItems = ({ todo, onToggleEditMode, onDelete, onSave }) => {
   const [newContent, setNewTodoContent] = useState(todo.content);
 
